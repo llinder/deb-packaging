@@ -9,5 +9,5 @@ ADD ./sources.list /etc/apt/sources.list
 RUN apt-get update && apt-get upgrade -y
 
 # Install essential build tools
-RUN apt-get install -y build-essential devscripts fakeroot quilt dh-make automake equivs
+RUN apt-get install -y build-essential devscripts fakeroot quilt dh-make automake equivs gdebi
 

@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    config.vm.hostname = "#{ `whoami`.strip}-packaging.moolb.com"
+    config.package.name = "packaging.box"
+    config.vm.box = "saucy64"
+    config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/saucy/current/saucy-server-cloudimg-amd64-vagrant-disk1.box"
+    
+    config.vm.provider :virtualbox do |vb|
+        vb.customize ["modifyvm", :id, "--memory", 1*1024 ]
+        vb.customize ["modifyvm", :id, "--cpus", 2]
+        # config.vm.network :bridged
+    end
+
+    config.vm.network :private_network, ip: "192.168.70.5"
+
+    config.vm.synced_folder File.expand_path("../"), "/home/vagrant/packaging"
+   
+    config.vm.provision "shell", path: "provision.sh"
+end
